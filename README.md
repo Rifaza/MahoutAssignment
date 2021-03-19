@@ -20,7 +20,19 @@ Look for the results in the part-files containing the recommendations:
         hadoop fs -cat recommendations/part-r-00000 | head
 You should see a lookup file that looks something like this (your recommendations will be different since they are all 5.0-valued and we are only picking ten):
 
-User ID (Movie ID : Recommendation Strength) Tuples 35 [ 2067:5.0, 17:5.0, 1041:5.0, 2068:5.0, 2087:5.0, 1036:5.0, 900:5.0, 1:5.0, 2081:5.0, 3135:5.0 ] 70 [ 1682:5.0, 551:5.0, 1676:5.0, 1678:5.0, 2797:5.0, 17:5.0, 1:5.0, 1673:5.0, 2791:5.0, 2804:5.0 ] 105 [ 21:5.0, 3147:5.0, 6:5.0, 1019:5.0, 2100:5.0, 2105:5.0, 50:5.0, 1:5.0, 10:5.0, 32:5.0 ] 140 [ 3134:5.0, 1066:5.0, 2080:5.0, 1028:5.0, 21:5.0, 2100:5.0, 318:5.0, 1:5.0, 1035:5.0, 28:5.0 ] 175 [ 1916:5.0, 1921:5.0, 1912:5.0, 1914:5.0, 10:5.0, 11:5.0, 1200:5.0, 2:5.0, 6:5.0, 16:5.0 ] 210 [ 19:5.0, 22:5.0, 2:5.0, 16:5.0, 20:5.0, 21:5.0, 50:5.0, 1:5.0, 6:5.0, 25:5.0 ] 245 [ 2797:5.0, 3359:5.0, 1674:5.0, 2791:5.0, 1127:5.0, 1129:5.0, 356:5.0, 1:5.0, 1676:5.0, 3361:5.0 ] 280 [ 562:5.0, 1127:5.0, 1673:5.0, 1663:5.0, 551:5.0, 2797:5.0, 223:5.0, 1:5.0, 1674:5.0, 2243:5.0 ] Where the first number is a user id, and the key-value pairs inside the brackets are movie-id:recommendation-strength tuples.
+User ID (Movie ID : Recommendation Strength) Tuples 
+3	[2376:5.0,3168:5.0,3035:5.0,2968:5.0,2375:5.0,2243:5.0,198:5.0,594:5.0,2111:5.0,3494:5.0]
+6	[3035:5.0,1912:5.0,3100:5.0,1187:5.0,2110:5.0,3034:5.0,3298:5.0,594:5.0,2572:5.0,2375:5.0]
+9	[265:5.0,1449:5.0,1517:5.0,1912:5.0,1320:5.0,3168:5.0,198:5.0,3100:5.0,2112:5.0,196:5.0]
+12	[592:5.0,1189:5.0,3098:5.0,3424:5.0,930:5.0,928:5.0,3498:5.0,1321:5.0,1387:5.0,596:5.0]
+15	[3354:4.6306524,3793:4.5098224,3189:4.509001,589:4.500217,3755:4.479548,3949:4.4727006,3861:4.4621515,3646:4.458238,3827:4.4371557,3745:4.4361334]
+18	[2376:5.0,3168:5.0,1187:5.0,2112:5.0,2243:5.0,1320:5.0,3430:5.0,3035:5.0,1584:5.0,1449:5.0]
+21	[316:5.0,3785:5.0,3911:5.0,2600:5.0,3317:5.0,442:5.0,1909:5.0,3863:5.0,1527:5.0,2542:5.0]
+24	[2376:5.0,2243:5.0,3035:5.0,529:5.0,2374:5.0,2375:5.0,2111:5.0,2110:5.0,265:5.0,3168:5.0]
+27	[2968:5.0,3629:5.0,1253:5.0,3100:5.0,1188:5.0,3035:5.0,198:5.0,3298:5.0,594:5.0,2243:5.0]
+30	[1234:5.0,903:5.0,788:5.0,1961:5.0,1036:5.0,1228:4.753679,3360:4.738523,1242:4.7331953,2871:4.6802135,3256:4.666473]
+
+Where the first number is a user id, and the key-value pairs inside the brackets are movie-id:recommendation-strength tuples.
 
 The recommendation strengths are at a hundred percent, or 5.0 in this case, and should work to finesse the results. This probably indicates that there are many more than ten “perfect five” recommendations for most people, so you might calculate more than the top ten or pull from deeper in the ranking to surface less-popular items.
 
@@ -82,4 +94,9 @@ run("localhost", 8083)
 Start the web service.
 
 twistd -noy hello.py &
-Test the web service with user id “37”:
+
+Test the web service with user id “27”:
+curl localhost:8083/27
+You should see a response like this (again, your recommendations will differ):
+The recommendations for user 27 are [2968:5.0,3629:5.0,1253:5.0,3100:5.0,1188:5.0,3035:5.0,198:5.0,3298:5.0,594:5.0,2243:5.0]
+
